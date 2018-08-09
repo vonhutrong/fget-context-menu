@@ -1,0 +1,14 @@
+{
+  "name": "Fget",
+  "description": "Try to open https://getlinkfshare.com/ for selected link",
+  "version": "0.1",
+  "permissions": ["contextMenus"],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "icons": {
+    "16": "/images/cloud.png",
+    "128": "/images/cloud-big.png"
+  },
+  "manifest_version": 2
+}
