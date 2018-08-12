@@ -2,7 +2,7 @@
   "name": "Fget",
   "description": "Try to open https://getlinkfshare.com/ for selected link",
   "version": "0.1",
-  "permissions": ["contextMenus"],
+  "permissions": ["contextMenus", "notifications"],
   "background": {
     "scripts": ["background.js"]
   },
