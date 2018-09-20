@@ -1,7 +1,7 @@
 {
   "name": "Fget",
-  "description": "Try to open https://getlinkfshare.com/ for selected link",
-  "version": "0.1",
+  "description": "Try to open https://getlinkfshare.com/ for selected link or current fshare file page",
+  "version": "0.2",
   "permissions": ["contextMenus", "notifications"],
   "background": {
     "scripts": ["background.js"]
