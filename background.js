@@ -48,12 +48,12 @@ function openGetlinkPage(url) {
     window.open("https://getlinkfshare.com/file/" + fshareFileId, "_blank");
 }
 
-var getLinkContexMenuId = chrome.contextMenus.create({
+var getLinkContextMenuId = chrome.contextMenus.create({
     "title": menuTitle,
     "contexts": ["link"],
     "onclick": genericOnClick
 });
-console.debug("Created menu item with id: " + getLinkContexMenuId);
+console.debug("Created menu item with id: " + getLinkContextMenuId);
 
 var getLinkContextMenuOnFsharePageID = chrome.contextMenus.create({
     "title": menuTitle,
