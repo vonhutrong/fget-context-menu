@@ -19,54 +19,33 @@ function notify(title, message) {
     chrome.notifications.create(opt);
 }
 
-function getFshareLink(decodedLink) {
-    return decodedLink.split(fshareFileLinkPrefix)[1];
-}
-
-function getFshareFileId(decodedLink) {
-    return getFshareLink(decodedLink).substring(0, fshareFileIdLength);
-}
-
-function isRightClickOnFshareFileLink(info, decodedLink) {
-    return info.menuItemId === getLinkContexMenuId && decodedLink.includes(fshareFileLinkPrefix);
+function log(info, tab) {
+    console.debug("info", JSON.stringify(info));
+    console.debug("tab", JSON.stringify(tab));
 }
 
 function genericOnClick(info, tab) {
-    console.debug("item was clicked", info.menuItemId);
-    console.debug("info", JSON.stringify(info));
-    console.debug("tab", JSON.stringify(tab));
+    log(info, tab);
 
     var decodedLink = getDecodedURLRecursively(info.linkUrl);
 
-    if (isRightClickOnFshareFileLink(info, decodedLink)) {
-
-        console.debug("User has right clicked on a fshare link");
-
-        var fshareFileId = getFshareFileId(decodedLink);
-        console.debug("File id", fshareFileId);
-
-        var link = "https://getlinkfshare.com/file/" + fshareFileId;
-        window.open(link, '_blank');
-        console.info("Opened page", link);
+    if (decodedLink.includes(fshareFileLinkPrefix)) {
+        openGetlinkPage(decodedLink);
     } else {
         notify("Unsupported link", "You must choose a fshare link of a file");
     }
 }
 
 function genericOnClickOnFsharePage(info, tab) {
-    console.debug("item was clicked", info.menuItemId);
-    console.debug("info", JSON.stringify(info));
-    console.debug("tab", JSON.stringify(tab));
-    
-    var decodedLink = getDecodedURLRecursively(info.pageUrl);
-    console.debug("User has right clicked on a fshare page");
-        
-    var fshareFileId = getFshareFileId(decodedLink);
+    log(info, tab);
+
+    openGetlinkPage(info.pageUrl);
+}
+
+function openGetlinkPage(url) {
+    var fshareFileId = getDecodedURLRecursively(url).split(fshareFileLinkPrefix)[1].substring(0, fshareFileIdLength);
     console.debug("File id", fshareFileId);
-    
-    var link = "https://getlinkfshare.com/file/" + fshareFileId;
-    window.open(link, '_blank');
-    console.info("Opened page", link);
+    window.open("https://getlinkfshare.com/file/" + fshareFileId, "_blank");
 }
 
 var getLinkContexMenuId = chrome.contextMenus.create({
