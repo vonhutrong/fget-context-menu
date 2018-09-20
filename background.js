@@ -53,9 +53,33 @@ function genericOnClick(info, tab) {
     }
 }
 
+function genericOnClickOnFsharePage(info, tab) {
+    console.debug("item was clicked", info.menuItemId);
+    console.debug("info", JSON.stringify(info));
+    console.debug("tab", JSON.stringify(tab));
+    
+    var decodedLink = getDecodedURLRecursively(info.pageUrl);
+    console.debug("User has right clicked on a fshare page");
+        
+    var fshareFileId = getFshareFileId(decodedLink);
+    console.debug("File id", fshareFileId);
+    
+    var link = "https://getlinkfshare.com/file/" + fshareFileId;
+    window.open(link, '_blank');
+    console.info("Opened page", link);
+}
+
 var getLinkContexMenuId = chrome.contextMenus.create({
     "title": menuTitle,
     "contexts": ["link"],
     "onclick": genericOnClick
 });
 console.debug("Created menu item with id: " + getLinkContexMenuId);
+
+var getLinkContextMenuOnFsharePageID = chrome.contextMenus.create({
+    "title": menuTitle,
+    "contexts": ["page"],
+    "onclick": genericOnClickOnFsharePage,
+    "documentUrlPatterns": ["https://www.fshare.vn/file/*"]
+});
+console.debug("Created menu item on Fshare page with id: " + getLinkContextMenuOnFsharePageID);
