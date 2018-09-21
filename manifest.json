@@ -6,6 +6,12 @@
   "background": {
     "scripts": ["background.js"]
   },
+  "content_scripts": [
+      {
+        "matches": ["https://www.fshare.vn/folder/*"],
+        "js": ["content_script.js"]
+      }
+    ],
   "icons": {
     "16": "/images/cloud.png",
     "128": "/images/cloud-big.png"
